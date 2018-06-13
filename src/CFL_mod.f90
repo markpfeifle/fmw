@@ -1,3 +1,5 @@
+!> this module calculates the CFL number
+
 module CFL_mod
   use, intrinsic :: iso_fortran_env
   use :: Types_mod
@@ -10,20 +12,30 @@ module CFL_mod
   
   contains
   
+  !> calculates the CFL number
+  !> \( \text{CFL} = \kappa\frac{\Delta t}{\Delta x^2} \)
+
   subroutine fd1d_heat_explicit_cfl(k, t_num, t_min, t_max, x_num, x_min, &
     x_max, cfl)
 
     implicit none
-
+    !> calculated CFL number
     real (kind=dp), intent(out) :: cfl
     real (kind=dp) :: dx
     real (kind=dp) :: dt
+    !> the heat constant \( \kappa \)
     real (kind=dp), intent(in) :: k
+    !> t_max upper bound of t-axis
     real (kind=dp), intent(in) :: t_max
+    !> lower bound of t-axis
     real (kind=dp), intent(in) :: t_min
+    !> number of intervals in t-axis
     integer, intent(in) :: t_num
+    !> upper bound of x-axis
     real (kind=dp), intent(in) :: x_max
+    !> x_min lower bound of x-axis
     real (kind=dp), intent(in) :: x_min
+    !> number of intervals in x-axis
     integer, intent(in) :: x_num
 
     dx = (x_max-x_min)/real(x_num-1, kind=dp)

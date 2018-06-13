@@ -1,3 +1,8 @@
+!> <Your name>, <Your affiliation>
+!> Solves the one dimensional heat diffusion equation
+!> \( \frac{\partial H}{\partial t}
+!> - \kappa\frac{\partial^{2} H}{\partial x^{2}} = f(x) \)
+
 program fd1d_heat_explicit_prb
   use :: types_mod, only: DP
   use :: RHS_mod

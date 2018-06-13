@@ -1,24 +1,27 @@
-project: 
-src_dir: 
-output_dir: 
-summary: 
-author: 
+project: 1D heat equation 
+src_dir: ./src
+output_dir: ./doc
+summary: Fortran Workshop
+author: Mark Pfeifle
 author_description: Fortran workshop attendee
 email: 
 linkedin: 
-docmark: 
-predocmark: 
+docmark: !
+predocmark: > 
 media_dir: ./media
 docmark_alt: #
 predocmark_alt: <
 coloured_edges:
-display:
-source: 
-graph: 
-search: 
+display: public
+         protected
+         private
+source:  true
+graph:   true
+search:  true
 warn: false
 license: by-nc
-version: 
+version: 1.1.1
+coloured_edges: true
 
 This is the solution for the [Fortran Modernisation Workshop](https://www.nag.co.uk/content/fortran-modernization-workshop).
 The workshop exercise solves. 
