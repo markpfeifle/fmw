@@ -1,0 +1,14 @@
+M CFL_MOD,#h("../../CFL_mod.f90",1)
+ S FD1D_HEAT_EXPLICIT_CFL,CFL_MOD_MP_fd1d_heat_explicit_cfl,#h("../../CFL_mod.f90",13)
+  V K,k,Real(Kind=2),double,d,0,#t("../../CFL_mod.f90",21)
+  V T_NUM,t_num,Integer,int,d,0,#t("../../CFL_mod.f90",24)
+  V T_MIN,t_min,Real(Kind=2),double,d,0,#t("../../CFL_mod.f90",23)
+  V T_MAX,t_max,Real(Kind=2),double,d,0,#t("../../CFL_mod.f90",22)
+  V X_NUM,x_num,Integer,int,d,0,#t("../../CFL_mod.f90",27)
+  V X_MIN,x_min,Real(Kind=2),double,d,0,#t("../../CFL_mod.f90",26)
+  V X_MAX,x_max,Real(Kind=2),double,d,0,#t("../../CFL_mod.f90",25)
+  V CFL,cfl,Real(Kind=2),double,d,0,#t("../../CFL_mod.f90",18)
+  V DX,dx,Real(Kind=2),double,,0,#t("../../CFL_mod.f90",19)
+  V DT,dt,Real(Kind=2),double,,0,#t("../../CFL_mod.f90",20)
+ ES
+EM

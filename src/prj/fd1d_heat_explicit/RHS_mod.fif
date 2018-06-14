@@ -1,0 +1,7 @@
+M RHS_MOD,#h("../../RHS_mod.f90",1)
+ F FUNC,RHS_MOD_MP_func,result(D),#h("../../RHS_mod.f90",13)
+  V J,j,Integer,int,d,0,#t("../../RHS_mod.f90",17)
+  V X,x,Real(Kind=2),double,d,1,d(1:*),#t("../../RHS_mod.f90",19)
+  V D,d,Real(Kind=2),double,,0,#t("../../RHS_mod.f90",18)
+ EF
+EM

@@ -1,0 +1,13 @@
+M SOLVER_MOD,#h("../../Solver_mod.f90",1)
+ S FD1D_HEAT_EXPLICIT,SOLVER_MOD_MP_fd1d_heat_explicit,#h("../../Solver_mod.f90",14)
+  V J,j,Integer,int,,0,#t("../../Solver_mod.f90",23)
+  V X,x,Real(Kind=2),double,d,1,d(1:*),#t("../../Solver_mod.f90",25)
+  V T,t,Real(Kind=2),double,d,0,#t("../../Solver_mod.f90",24)
+  V DT,dt,Real(Kind=2),double,d,0,#t("../../Solver_mod.f90",20)
+  V CFL,cfl,Real(Kind=2),double,d,0,#t("../../Solver_mod.f90",19)
+  V H,h,Real(Kind=2),double,d,1,d(1:*),#t("../../Solver_mod.f90",21)
+  V H_NEW,h_new,Real(Kind=2),double,d,1,d(1:*),#t("../../Solver_mod.f90",22)
+  V X_NUM,x_num,Integer,int,,0,#t("../../Solver_mod.f90",23)
+  V F,f,Real(Kind=2),double,,1,i(1:*),#t("../../Solver_mod.f90",26)
+ ES
+EM

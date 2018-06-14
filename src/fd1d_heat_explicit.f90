@@ -9,6 +9,8 @@ program fd1d_heat_explicit_prb
   use :: CFL_mod
   use :: IO_mod
   use :: Solver_mod
+  use :: plplot
+  use :: iso_c_binding
 
   implicit none
 
@@ -29,8 +31,11 @@ program fd1d_heat_explicit_prb
   integer :: j
   integer :: i_all_stat
   real (kind=dp) :: k
-  
-  character(len=:),allocatable :: msg
+  character(len=200):: vis_file_name
+  character(len=200):: msg
+  character(len=200):: time_char
+  character(len=len('fd1d_heat_explicit_')),parameter :: prefix='fd1d_heat_explicit_'
+  character(len=4),parameter :: suffix='.png'
 
 !  real (kind=dp) :: t(t_num)
   real (kind=dp), allocatable :: t(:)
@@ -40,6 +45,10 @@ program fd1d_heat_explicit_prb
   real (kind=dp), allocatable :: x(:)
   real (kind=dp) :: x_max
   real (kind=dp) :: x_min
+  real (kind=dp) :: x_spread
+  real (kind=dp) :: H_max
+  real (kind=dp) :: H_min
+  real (kind=dp) :: H_spread
 
   write (*, '(a)') ' '
   write (*, '(a)') 'FD1D_HEAT_EXPLICIT_PRB:'
@@ -66,6 +75,11 @@ program fd1d_heat_explicit_prb
 ! the x-range values
   x_min = 0.0e+00_dp
   x_max = 1.0e+00_dp
+  x_spread = x_max - x_min
+! Range of H, for plotting
+  H_min = 40.0e+00_dp
+  H_max = 100.0e+00_dp
+  H_spread = H_max - H_min
 ! x_num is the number of intervals in the x-direction
 
   allocate( h(1:x_num),             stat=i_all_stat, errmsg=msg )
@@ -133,13 +147,34 @@ program fd1d_heat_explicit_prb
       hmat(i, j) = h_new(i)
       h(i) = h_new(i)
     end do
+    
+    if ( mod( j,10 ) .eq. 0 ) then
+      write(vis_file_name,'(A,I5.5,A)') prefix, j, suffix
+      write(time_char,'(ES11.3)') t(j)
+      call PLSFNAM( trim( vis_file_name ) ) !to set the output file name
+      call PLSDEV( 'pngcairo' ) !to set the output device to use. Set this to 
+                                ! "pngcairo" which will save the images in the 
+                                ! portable network graphics (PNG) format
+      call PLINIT( ) !to initialise PLplot
+      call PLENV( x_min-x_spread*0.02_dp, x_max+x_spread*0.02_dp, &
+                & H_min-H_spread*0.02_dp, H_max+H_spread*0.02_dp, 0, 0 ) !to set the x- and y-range
+      call PLLAB( 'x / m', 'H / °C', 'Solution of 1D heat diff. eq., t/s='//trim( time_char ) )
+                     !to set the x and y labels, and the title of the graph
+      call PLLINE( x(:), h_new(:) ) 
+                     !to set the x and y values which will be represented 
+                     ! by the arrays x(:) and h_new(:), respectively
+      call PLEND( ) !to finalise PLplot
+    end if
+    
   end do
 
 !! write data to files
-  call r8mat_write('h_test01.txt', hmat)
-  call r8vec_write('t_test01.txt', t)
-  call r8vec_write('x_test01.txt', x)
+  !call r8mat_write('h_test01.txt', hmat)
+  !call r8vec_write('t_test01.txt', t)
+  !call r8vec_write('x_test01.txt', x)
 
+  call r8mat_write('h_test01.nc', x,t,hmat)
+  
   deallocate( h )
   deallocate( h_new )
   deallocate( hmat )

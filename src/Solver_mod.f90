@@ -1,7 +1,8 @@
 module Solver_mod
-  use, intrinsic :: iso_fortran_env
-  use :: Types_mod
-  use :: RHS_mod
+  !use, intrinsic :: iso_fortran_env
+  use iso_fortran_env
+  use Types_mod
+  use RHS_mod
   implicit none
 
 
@@ -34,6 +35,8 @@ module Solver_mod
     h_new(1) = 0.0e+00_dp
 
     do j = 2, x_num - 1
+      != stencil readOnce centered(depth=1, dim=1) :: h
+      != stencil readOnce reflexive(dim=1) :: f
       h_new(j) = h(j) + dt*f(j) + cfl*(h(j-1)-2.0e+00_dp*h(j)+h(j+1))
     end do
 
